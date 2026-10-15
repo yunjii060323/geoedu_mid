@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>지리교육론 단원별 복습 퀴즈</title>
+  <style>
+    :root {
+      --bg-color: #f8fafc;
+      --card-bg: #ffffff;
+      --primary: #3b82f6;
+      --primary-hover: #2563eb;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      padding: 60px 20px;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 10px;
+    }
+
+    header p {
+      color: var(--text-muted);
+      font-size: 1rem;
+    }
+
+    .quiz-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .quiz-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--card-bg);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 24px;
+      text-decoration: none;
+      color: inherit;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+      transition: all 0.2s ease;
+    }
+
+    .quiz-card:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(59, 130, 246, 0.1);
+    }
+
+    .quiz-info h2 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 4px;
+    }
+
+    .quiz-info p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    .arrow {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--primary);
+      transition: transform 0.2s ease;
+    }
+
+    .quiz-card:hover .arrow {
+      transform: translateX(4px);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>🗺️ 지리교육론 단원별 퀴즈</h1>
+      <p>복습하고 싶은 단원을 선택하여 퀴즈를 풀어보세요.</p>
+    </header>
+
+    <div class="quiz-list">
+      <a href="chapter1.html" class="quiz-card">
+        <div class="quiz-info">
+          <h2>1장. 지리교육의 기초</h2>
+          <p>지리교육의 목적, 개념 및 기본 관점</p>
+        </div>
+        <span class="arrow">→</span>
+      </a>
+
+      <a href="chapter2.html" class="quiz-card">
+        <div class="quiz-info">
+          <h2>2장. 지리교육과정의 변천과 체제</h2>
+          <p>지리 교육과정의 역사적 전개 및 내용 체계</p>
+        </div>
+        <span class="arrow">→</span>
+      </a>
+
+      <a href="chapter3.html" class="quiz-card">
+        <div class="quiz-info">
+          <h2>3장. 지리교과 내용의 선정과 조직</h2>
+          <p>내용 선정 원리와 단원 구성 방식</p>
+        </div>
+        <span class="arrow">→</span>
+      </a>
+
+      <a href="chapter4.html" class="quiz-card">
+        <div class="quiz-info">
+          <h2>4장. 지리과 교수·학습 방법</h2>
+          <p>탐구학습, 의사결정학습 등 교수 전략</p>
+        </div>
+        <span class="arrow">→</span>
+      </a>
+
+      <a href="chapter5.html" class="quiz-card">
+        <div class="quiz-info">
+          <h2>5장. 지리학습과 인지</h2>
+          <p>인지 발달, 공간사고, 도해력, 오개념 분석</p>
+        </div>
+        <span class="arrow">→</span>
+      </a>
+    </div>
+  </div>
+
+</body>
+</html>

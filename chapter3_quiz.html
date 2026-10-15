@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>지리교육론 복습 - [퀴즈] 3장</title>
+  <style>
+    :root {
+      --bg-color: #f8fafc;
+      --card-bg: #ffffff;
+      --primary: #3b82f6;
+      --primary-hover: #2563eb;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --correct: #10b981;
+      --wrong: #ef4444;
+      --correct-bg: #ecfdf5;
+      --wrong-bg: #fef2f2;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      padding: 40px 20px;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    header {
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 8px;
+    }
+
+    header p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+    }
+
+    .q-meta {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+    }
+
+    .q-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 14px;
+      color: #1e293b;
+      word-break: keep-all;
+    }
+
+    .q-box {
+      background-color: #f1f5f9;
+      border-left: 4px solid var(--primary);
+      padding: 12px 16px;
+      border-radius: 4px;
+      margin-bottom: 16px;
+      font-size: 0.95rem;
+      color: #334155;
+    }
+
+    .q-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 16px;
+      font-size: 0.92rem;
+    }
+
+    .q-table th, .q-table td {
+      border: 1px solid #cbd5e1;
+      padding: 8px 12px;
+      text-align: left;
+    }
+
+    .q-table th {
+      background: #f8fafc;
+      font-weight: 600;
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .option-label {
+      display: flex;
+      align-items: center;
+      padding: 12px 16px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+
+    .option-label:hover {
+      background-color: #f8fafc;
+      border-color: #cbd5e1;
+    }
+
+    .option-label input[type="radio"],
+    .option-label input[type="checkbox"] {
+      margin-right: 12px;
+      accent-color: var(--primary);
+      width: 17px;
+      height: 17px;
+    }
+
+    .input-text {
+      width: 100%;
+      max-width: 320px;
+      padding: 10px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      margin-bottom: 16px;
+    }
+
+    textarea.input-text {
+      max-width: 100%;
+      height: 90px;
+      resize: vertical;
+    }
+
+    .option-label.correct-choice {
+      border-color: var(--correct) !important;
+      background-color: var(--correct-bg) !important;
+      font-weight: 600;
+      color: #065f46;
+    }
+
+    .option-label.wrong-choice {
+      border-color: var(--wrong) !important;
+      background-color: var(--wrong-bg) !important;
+      color: #991b1b;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .btn-card {
+      padding: 8px 18px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-grade {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    .btn-grade:hover {
+      background-color: var(--primary-hover);
+    }
+
+    .btn-card-reset {
+      background-color: #e2e8f0;
+      color: #475569;
+    }
+
+    .btn-card-reset:hover {
+      background-color: #cbd5e1;
+    }
+
+    .result-feedback {
+      margin-top: 14px;
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      display: none;
+    }
+
+    .result-feedback.show-correct {
+      display: block;
+      background-color: #d1fae5;
+      color: #065f46;
+    }
+
+    .result-feedback.show-wrong {
+      display: block;
+      background-color: #fee2e2;
+      color: #991b1b;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>📝 [퀴즈] 3장. 지리교육과정과 내용조직</h1>
+      <p>각 문제마다 답을 고르고 <strong>[채점하기]</strong> 버튼을 눌러 개별 확인할 수 있습니다.</p>
+    </header>
+
+    <!-- 문제 1 -->
+    <div class="card" id="card_1" data-type="radio" data-answer="e">
+      <div class="q-meta">문제 01</div>
+      <div class="q-title">아래 표에 드러난 지리교육과정의 구성방법은?</div>
+      <table class="q-table">
+        <tr><th>대단원</th><th>소주제 구성 내용</th></tr>
+        <tr><td>(1) 지역과 사회탐구</td><td>(가) 지역의 지리적 환경 (나) 지역사회의 변화와 발전 (다) 지역사회의 문제와 해결</td></tr>
+        <tr><td>(2) 중부 지방의 생활</td><td>(가) 우리나라의 중앙부 (나) 인구와 산업이 집중된 수도권 (다) 관광 자원이 풍부한 관동 지방 (라) 발전하는 충청 지방</td></tr>
+        <tr><td>(3) 남부 지방의 생활</td><td>(가) 해양 진출의 요지 (나) 농업과 공업이 함께 발달하는 호남 지방 (다) 임해 공업이 발달한 영남 지방 (라) 관광 산업이 발달한 제주도</td></tr>
+        <tr><td>(4) 북부 지방의 생활</td><td>(가) 대륙의 관문 (나) 북부 지방의 중심지 관서 지방 (다) 문호를 개방하는 관북 지방</td></tr>
+        <tr><td>(5) 아시아 및 아프리카의 생활</td><td>(가) 경제가 성장하는 동부 아시아 (나) 문화가 다양한 동남 및 남부 아시아 (다) 석유 자원이 풍부한 서남 아시아와 북부 아프리카 (라) 발전이 기대되는 중·남부 아프리카</td></tr>
+        <tr><td>(6) 유럽의 생활</td><td>(가) 일찍 산업화를 이룬 서부 및 북부 유럽 (나) 관광 산업이 발달한 남부 유럽 (다) 민족과 문화가 다양한 동부 유럽과 러시아</td></tr>
+        <tr><td>(7) 아메리카 및 오세아니아의 생활</td><td>(가) 선진 지역 앵글로아메리카 (나) 자원이 풍부한 라틴아메리카 (다) 발전 가능성이 큰 오세아니아와 극 지방</td></tr>
+      </table>
+      <div class="options">
+        <label class="option-label"><input type="radio" name="q1" value="a"> a. 환경확대법</label>
+        <label class="option-label"><input type="radio" name="q1" value="b"> b. 계통적 방법</label>
+        <label class="option-label"><input type="radio" name="q1" value="c"> c. 문제중심방법</label>
+        <label class="option-label"><input type="radio" name="q1" value="d"> d. 역량중심방법</label>
+        <label class="option-label"><input type="radio" name="q1" value="e"> e. 지역적 방법</label>
+      </div>
+      <div class="card-actions">
+        <button type="button" class="btn-card btn-grade" onclick="gradeCard('card_1')">채점하기</button>
+        <button type="button" class="btn-card btn-card-reset" onclick="resetCard('card_1')">다시 풀기</button>
+      </div>
+      <div class="result-feedback" id="fb_card_1"></div>
+    </div>
+
+    <!-- 문제 2 -->
+    <div class="card" id="card_2" data-type="checkbox" data-answer="b,c,d">
+      <div class="q-meta">문제 02</div>
+      <div class="q-title">지리교육과정의 내용조직 원리 중 지역적 방법에 대한 설명으로 옳은 것을 모두 골라라.</div>
+      <div class="options">
+        <label class="option-label"><input type="checkbox" name="q2" value="a"> a. 지역 간의 유사성과 관계를 다루기에 적합하다.</label>
+        <label class="option-label"><input type="checkbox" name="q2" value="b"> b. 특정 지역을 종합적으로 다룰 수 있다.</label>
+        <label class="option-label"><input type="checkbox" name="q2" value="c"> c. 지역별로 정리된 교재나 참고자료가 풍부하다.</label>
+        <label class="option-label"><input type="checkbox" name="q2" value="d"> d. 지역이 내용조직을 위한 구조가 되기 때문에 내용 조직이 용이하다.</label>
+      </div>
+      <div class="card-actions">
+        <button type="button" class="btn-card btn-grade" onclick="gradeCard('card_2')">채점하기</button>
+        <button type="button" class="btn-card btn-card-reset" onclick="resetCard('card_2')">다시 풀기</button>
+      </div>
+      <div class="result-feedback" id="fb_card_2"></div>
+    </div>
+
+    <!-- 문제 3 -->
+    <div class="card" id="card_3" data-type="text" data-answer="HSGP">
+      <div class="q-meta">문제 03</div>
+      <div class="q-title">다음 내용에서 설명하고 있는 이것은 무엇인가?</div>
+      <div class="q-box">1950년대이후 학문중심 교육과정과 신사회과교육의 영향으로 미국의 지리 교육계에서는 지리 교육과정을 주제적 또는 계통적 방법으로 구성하려는 시도가 이루어졌으며, 이것은 이러한 시도의 대표적인 사례이다. 브루너가 제시한 지식의 구조와 나선형 교육과정에 영향을 받았다. 교수방법 역시 기존의 기계적 암기교육에서 탐구학습(역할극, 시뮬레이션 등)으로 전환하는 혁신적인 교육과정으로 평가받는다.</div>
+      <input type="text" class="input-text" id="input_card_3" placeholder="영어 약칭 대문자 입력">
+      <div class="card-actions">
+        <button type="button" class="btn-card btn-grade" onclick="gradeCard('card_3')">채점하기</button>
+        <button type="button" class="btn-card btn-card-reset" onclick="resetCard('card_3')">다시 풀기</button>
+      </div>
+      <div class="result-feedback" id="fb_card_3"></div>
+    </div>
+
+    <!-- 문제 4 -->
+    <div class="card" id="card_4" data-type="radio" data-answer="b">
+      <div class="q-meta">문제 04</div>
+      <div class="q-title">다음은 지리과 내용구성원리에 대한 설명이다. 성격이 다른 하나는?</div>
+      <div class="options">
+        <label class="option-label"><input type="radio" name="q4" value="a"> a. 개념적 방법</label>
+        <label class="option-label"><input type="radio" name="q4" value="b"> b. 지역적 방법</label>
+        <label class="option-label"><input type="radio" name="q4" value="c"> c. 계통적 방법</label>
+        <label class="option-label"><input type="radio" name="q4" value="d"> d. 원리중심방법</label>
+      </div>
+      <div class="card-actions">
+        <button type="button" class="btn-card btn-grade" onclick="gradeCard('card_4')">채점하기</button>
+        <button type="button" class="btn-card btn-card-reset" onclick="resetCard('card_4')">다시 풀기</button>
+      </div>
+      <div class="result-feedback" id="fb_card_4"></div>
+    </div>
+
+    <!-- 문제 5 -->
+    <div class="card" id="card_5" data-type="radio" data-answer="d">
+      <div class="q-meta">문제 05</div>
+      <div class="q-title">다음은 지리과 내용구성원리에 대한 설명이다. 아래 예시에 대한 설명으로 옳은 것을 골라라.</div>
+      <table class="q-table" style="max-width:340px;">
+        <tr><th>영역</th><th>핵심개념</th></tr>
+        <tr><td>삶의 이해와 환경</td><td>행복, 자연환경, 생활공간</td></tr>
+        <tr><td>인간과 공동체</td><td>인권, 시장, 정의</td></tr>
+        <tr><td>사회 변화와 공존</td><td>문화, 세계화, 지속가능한 삶</td></tr>
+      </table>
+      <div class="options">
+        <label class="option-label"><input type="radio" name="q5" value="a"> a. 지역을 종합적으로 바라볼 수 있는 안목을 길러줄 수 있다.</label>
+        <label class="option-label"><input type="radio" name="q5" value="b"> b. 학습자의 발달수준에 맞춰 내용을 계열화하기 유리하다.</label>
+        <label class="option-label"><input type="radio" name="q5" value="c"> c. 지리적 쟁점이나 문제를 해결하는 능력을 길러주는데 유리하다.</label>
+        <label class="option-label"><input type="radio" name="q5" value="d"> d. 전이력이 높은 지식을 가르칠 수 있다.</label>
+      </div>
+      <div class="card-actions">
+        <button type="button" class="btn-card btn-grade" onclick="gradeCard('card_5')">채점하기</button>
+        <button type="button" class="btn-card btn-card-reset" onclick="resetCard('card_5')">다시 풀기</button>
+      </div>
+      <div class="result-feedback" id="fb_card_5"></div>
+    </div>
+
+    <!-- 문제 6 -->
+    <div class="card" id="card_6" data-type="radio" data-answer="c">
+      <div class="q-meta">문제 06</div>
+      <div class="q-title">지리과 내용구성원리에 대한 설명이다. 아래 그림에 대한 설명으로 옳지 않은 내용을 골라라.</div>
+      <div class="q-box" style="text-align:center;">
+        <strong>[ 주제: 자연재해 ]</strong><br>
+        ↙ ↓ ↓ ↘<br>
+        [지역기반 사례학습] [지역기반 사례학습] [지역기반 사례학습] [지역기반 사례학습]
+      </div>
+      <div class="options">
+        <label class="option-label"><input type="radio" name="q6" value="a"> a. 지리적 주제가 내용 조직을 위한 중심(조직자) 역할을 한다.</label>
+        <label class="option-label"><input type="radio" name="q6" value="b"> b. 지역에 대한 파편화된 지식을 심어줄 위험이 있다.</label>
+        <label class="option-label"><input type="radio" name="q6" value="c"> c. 특정 국가를 종합적으로 이해할 수 있는 기회를 제공한다.</label>
+        <label class="option-label"><input type="radio" name="q6" value="d"> d. 지역 - 주제 구성방식이다.</label>
+      </div>
+      <div class="card-actions">
+        <button type="button" class="btn-card btn-grade" onclick="gradeCard('card_6')">채점하기</button>
+        <button type="button" class="btn-card btn-card-reset" onclick="resetCard('card_6')">다시 풀기</button>
+      </div>
+      <div class="result-feedback" id="fb_card_6"></div>
+    </div>
+
+    <!-- 문제 7 -->
+    <div class="card" id="card_7" data-type="radio" data-answer="참">
+      <div class="q-meta">문제 07</div>
+      <div class="q-title">지리과 내용구성원리에 대한 설명이다. 지역-주제 방법의 장점은 각 지역의 특성을 특정 주제를 통하여 보다 분명히 제시함으로써 지역 학습의 초점을 유지할 수 있게 한다.</div>
+      <div class="options">
+        <label class="option-label"><input type="radio" name="q7" value="참"> 참</label>
+        <label class="option-label"><input type="radio" name="q7" value="거짓"> 거짓</label>
+      </div>
+      <div class="card-actions">
+        <button type="button" class="btn-card btn-grade" onclick="gradeCard('card_7')">채점하기</button>
+        <button type="button" class="btn-card btn-card-reset" onclick="resetCard('card_7')">다시 풀기</button>
+      </div>
+      <div class="result-feedback" id="fb_card_7"></div>
+    </div>
+
+    <!-- 문제 8 -->
+    <div class="card" id="card_8" data-type="radio" data-answer="c">
+      <div class="q-meta">문제 08</div>
+      <div class="q-title">아래 예시가 보여주고 있는 지리과 내용구성원리는?</div>
+      <div class="q-box">
+        <strong>고등학교 『한국지리』</strong><br>
+        (1) 국토 인식과 국토 통일<br>
+        (2) 지형 환경과 인간 생활<br>
+        (3) 기후 환경과 인간 생활<br>
+        (4) 거주 공간의 변화와 지역 개발<br>
+        (5) 생산과 소비 공간<br>
+        (6) 인구 변화와 다문화 공간<br>
+        (7) 우리나라의 지역 이해
+      </div>
+      <div class="options">
+        <label class="option-label"><input type="radio" name="q8" value="a"> a. 환경확대법</label>
+        <label class="option-label"><input type="radio" name="q8" value="b"> b. 이슈 중심 방법</label>
+        <label class="option-label"><input type="radio" name="q8" value="c"> c. 계통적 방법</label>
+        <label class="option-label"><input type="radio" name="q8" value="d"> d. 개념중심 방법</label>
+      </div>
+      <div class="card-actions">
+        <button type="button" class="btn-card btn-grade" onclick="gradeCard('card_8')">채점하기</button>
+        <button type="button" class="btn-card btn-card-reset" onclick="resetCard('card_8')">다시 풀기</button>
+      </div>
+      <div class="result-feedback" id="fb_card_8"></div>
+    </div>
+
+    <!-- 문제 9 -->
+    <div class="card" id="card_9" data-type="radio" data-answer="d">
+      <div class="q-meta">문제 09</div>
+      <div class="q-title">아래는 미국의 중등 지리교육 프로젝트인 GIGI 모듈의 일부 이다. 예시가 보여주고 있는 지리와 내용구성원리는?</div>
+      <table class="q-table">
+        <tr><th>지역</th><th>핵심 탐구 질문 및 쟁점</th></tr>
+        <tr><td>남부 아시아</td><td>• <strong>인구와 자원</strong>: 세계 인구성장은 자원 이용가능성에 어떻게 영향을 미치는가? (방글라데시, 아이티)<br>• <strong>종교 갈등</strong>: 종교적 차이가 갈등을 초래하는 곳은 어디인가? (카슈미르, 북아일랜드, 미국)</td></tr>
+        <tr><td>동남 아시아</td><td>• <strong>지속가능한 농업</strong>: 세계는 어떻게 지속가능한 농업을 성취할 수 있는가? (말레이시아, 카메룬, 미국의 서부)<br>• <strong>인권</strong>: 이동의 자유는 얼마나 기본적인 인권인가? (캄보디아, 쿠바, 미국)</td></tr>
+      </table>
+      <div class="options">
+        <label class="option-label"><input type="radio" name="q9" value="a"> a. 환경확대법</label>
+        <label class="option-label"><input type="radio" name="q9" value="b"> b. 개념중심 방법</label>
+        <label class="option-label"><input type="radio" name="q9" value="c"> c. 계통적 방법</label>
+        <label class="option-label"><input type="radio" name="q9" value="d"> d. 이슈 중심 방법</label>
+      </div>
+      <div class="card-actions">
+        <button type="button" class="btn-card btn-grade" onclick="gradeCard('card_9')">채점하기</button>
+        <button type="button" class="btn-card btn-card-reset" onclick="resetCard('card_9')">다시 풀기</button>
+      </div>
+      <div class="result-feedback" id="fb_card_9"></div>
+    </div>
+
+    <!-- 문제 10 -->
+    <div class="card" id="card_10" data-type="checkbox" data-answer="b,c,d">
+      <div class="q-meta">문제 10</div>
+      <div class="q-title">지리와 내용구성원리에 대한 설명이다. 다음 중 쟁점 또는 문제 중심 방법에 대한 설명으로 옳은 것을 모두 골라라.</div>
+      <div class="options">
+        <label class="option-label"><input type="checkbox" name="q10" value="a"> a. 학문의 체계적인 지식의 구조를 가르치기에 적합하다.</label>
+        <label class="option-label"><input type="checkbox" name="q10" value="b"> b. 시사적인 내용을 다룰 수 있어 학습자의 흥미 유발에 유리하다.</label>
+        <label class="option-label"><input type="checkbox" name="q10" value="c"> c. 비판적 사고력, 문제해결력, 의사결정력 발달에 기여할 수 있다.</label>
+        <label class="option-label"><input type="checkbox" name="q10" value="d"> d. 쟁점은 가변적이기 때문에 교육과정을 자주 개정해야 하는 문제가 있다.</label>
+      </div>
+      <div class="card-actions">
+        <button type="button" class="btn-card btn-grade" onclick="gradeCard('card_10')">채점하기</button>
+        <button type="button" class="btn-card btn-card-reset" onclick="resetCard('card_10')">다시 풀기</button>
+      </div>
+      <div class="result-feedback" id="fb_card_10"></div>
+    </div>
+
+    <!-- 문제 11 -->
+    <div class="card" id="card_11" data-type="radio" data-answer="d">
+      <div class="q-meta">문제 11</div>
+      <div class="q-title">지리와 내용구성원리에 대한 설명이다. 지평확대법에 대한 설명으로 옳지 않은 것은?</div>
+      <div class="options">
+        <label class="option-label"><input type="radio" name="q11" value="a"> a. 배울 내용은 자기 동네 - 고장 - 지방 - 국가 - 대륙 - 세계의 순으로 배열된다.</label>
+        <label class="option-label"><input type="radio" name="q11" value="b"> b. 아동의 경험이 자신의 가까운 곳에서 점차 먼곳으로 지평이 확대되어 가는 것에 기초한다.</label>
+        <label class="option-label"><input type="radio" name="q11" value="c"> c. 학습은 '가까운 곳에서 먼 곳으로, 쉬운 것에서 어려운 것으로, 단순한 것에서 복잡한 것으로' 이루어져야 한다는 자연주의 교육사상가들의 원리와 유사하다.</label>
+        <label class="option-label"><input type="radio" name="q11" value="d"> d. 학문의 구조와 교육내용의 계열성을 유지하기에 유리하다.</label>
+      </div>
+      <div class="card-actions">
+        <button type="button" class="btn-card btn-grade" onclick="gradeCard('card_11')">채점하기</button>
+        <button type="button" class="btn-card btn-card-reset" onclick="resetCard('card_11')">다시 풀기</button>
+      </div>
+      <div class="result-feedback" id="fb_card_11"></div>
+    </div>
+
+    <!-- 문제 12 -->
+    <div class="card" id="card_12" data-type="essay">
+      <div class="q-meta">문제 12</div>
+      <div class="q-title">지리와 내용구성원리에 대한 설명이다. 지평확대법의 문제점에 대해 2가지 이상 설명하시오.</div>
+      <textarea class="input-text" id="input_card_12" placeholder="답안을 서술해 보세요."></textarea>
+      <div class="card-actions">
+        <button type="button" class="btn-card btn-grade" onclick="gradeEssay('card_12')">채점 및 예시답안 확인</button>
+        <button type="button" class="btn-card btn-card-reset" onclick="resetCard('card_12')">다시 풀기</button>
+      </div>
+      <div class="result-feedback" id="fb_card_12">
+        💡 <strong>예시 정답:</strong> 정보사회가 되면서 다양한 미디어의 발달로 물리적으로 먼 지역에 대한 정보를 쉽게 접할 수 있게 됨에 따라 가까운 지역을 공부해야한다는 지평확대법의 가정에 의문이 제기된다. 또한 세계화와 지역화가 동시에 일어나고 있는 이 시점에서 지역을 분절적, 파편적으로 이해하는 것은 의미가 없다.
+      </div>
+    </div>
+
+    <!-- 문제 13 -->
+    <div class="card" id="card_13" data-type="radio" data-answer="b">
+      <div class="q-meta">문제 03</div>
+      <div class="q-title">지리와 내용구성원리에 대한 설명이다. 아래 그림 중 '탄력적 환경확대법'은?</div>
+      <div class="q-box">
+        <strong>(가)</strong> 집(가정) ↑ → 학교 ↑ → 도시(지역) ↑ → 국가 ↑ → 세계<br><br>
+        <strong>(나)</strong> 집(가정) ↑ → 학교 ↑ → 도시(지역) + 세계 ↑ → 국가 + 세계 ↑ → 세계<br><br>
+        <strong>(다)</strong> 집(가정) ↓ → 학교 ↓ → 도시(지역) ↓ → 국가 ↓ → 세계
+      </div>
+      <div class="options">
+        <label class="option-label"><input type="radio" name="q13" value="a"> a. (가)</label>
+        <label class="option-label"><input type="radio" name="q13" value="b"> b. (나)</label>
+        <label class="option-label"><input type="radio" name="q13" value="c"> c. (다)</label>
+      </div>
+      <div class="card-actions">
+        <button type="button" class="btn-card btn-grade" onclick="gradeCard('card_13')">채점하기</button>
+        <button type="button" class="btn-card btn-card-reset" onclick="resetCard('card_13')">다시 풀기</button>
+      </div>
+      <div class="result-feedback" id="fb_card_13"></div>
+    </div>
+
+    <!-- 문제 14 -->
+    <div class="card" id="card_14" data-type="radio" data-answer="참">
+      <div class="q-meta">문제 14</div>
+      <div class="q-title">2015 개정 교육과정은 핵심역량기반 교육과정이다.</div>
+      <div class="options">
+        <label class="option-label"><input type="radio" name="q14" value="참"> 참</label>
+        <label class="option-label"><input type="radio" name="q14" value="거짓"> 거짓</label>
+      </div>
+      <div class="card-actions">
+        <button type="button" class="btn-card btn-grade" onclick="gradeCard('card_14')">채점하기</button>
+        <button type="button" class="btn-card btn-card-reset" onclick="resetCard('card_14')">다시 풀기</button>
+      </div>
+      <div class="result-feedback" id="fb_card_14"></div>
+    </div>
+
+    <!-- 문제 15 -->
+    <div class="card" id="card_15" data-type="radio" data-answer="b">
+      <div class="q-meta">문제 15</div>
+      <div class="q-title">2015 개정 교육과정은 총론에서 6가지 핵심역량을 제시하였다. 아래에서 설명하고 있는 역량은?</div>
+      <div class="q-box">"자아정체성과 자신감을 가지고 자신의 삶과 진로에 필요한 기초능력과 자질을 갖추어 자기주도적으로 살아갈 수 있는 능력"</div>
+      <div class="options">
+        <label class="option-label"><input type="radio" name="q15" value="a"> a. 심미적 감성 역량</label>
+        <label class="option-label"><input type="radio" name="q15" value="b"> b. 자기관리 역량</label>
+        <label class="option-label"><input type="radio" name="q15" value="c"> c. 의사소통 역량</label>
+        <label class="option-label"><input type="radio" name="q15" value="d"> d. 공동체 역량</label>
+        <label class="option-label"><input type="radio" name="q15" value="e"> e. 창의융합사고 역량</label>
+        <label class="option-label"><input type="radio" name="q15" value="f"> f. 지식정보처리 역량</label>
+      </div>
+      <div class="card-actions">
+        <button type="button" class="btn-card btn-grade" onclick="gradeCard('card_15')">채점하기</button>
+        <button type="button" class="btn-card btn-card-reset" onclick="resetCard('card_15')">다시 풀기</button>
+      </div>
+      <div class="result-feedback" id="fb_card_15"></div>
+    </div>
+
+    <!-- 문제 16 -->
+    <div class="card" id="card_16" data-type="radio" data-answer="c">
+      <div class="q-meta">문제 16</div>
+      <div class="q-title">2015 개정 교육과정은 총론에서 6가지 핵심역량을 제시하였다. 아래에서 설명하고 있는 역량은?</div>
+      <div class="q-box">"폭넓은 기초 지식을 바탕으로 다양한 전문 분야의 지식, 기술, 경험을 융합적으로 활용하여 새로운 것을 창출하는 능력"</div>
+      <div class="options">
+        <label class="option-label"><input type="radio" name="q16" value="a"> a. 지식정보처리 역량</label>
+        <label class="option-label"><input type="radio" name="q16" value="b"> b. 심미적 감성 역량</label>
+        <label class="option-label"><input type="radio" name="q16" value="c"> c. 창의융합사고 역량</label>
+        <label class="option-label"><input type="radio" name="q16" value="d"> d. 의사소통 역량</label>
+        <label class="option-label"><input type="radio" name="q16" value="e"> e. 공동체 역량</label>
+        <label class="option-label"><input type="radio" name="q16" value="f"> f. 자기관리 역량</label>
+      </div>
+      <div class="card-actions">
+        <button type="button" class="btn-card btn-grade" onclick="gradeCard('card_16')">채점하기</button>
+        <button type="button" class="btn-card btn-card-reset" onclick="resetCard('card_16')">다시 풀기</button>
+      </div>
+      <div class="result-feedback" id="fb_card_16"></div>
+    </div>
+
+    <!-- 문제 17 -->
+    <div class="card" id="card_17" data-type="radio" data-answer="a">
+      <div class="q-meta">문제 17</div>
+      <div class="q-title">2015 개정 교육과정은 핵심역량기반 교육과정이다. 다음 중 통합사회 핵심역량에 포함되지 않는 것은?</div>
+      <div class="options">
+        <label class="option-label"><input type="radio" name="q17" value="a"> a. 심미적 감성 역량</label>
+        <label class="option-label"><input type="radio" name="q17" value="b"> b. 문제해결능력과 의사결정능력</label>
+        <label class="option-label"><input type="radio" name="q17" value="c"> c. 공동체적 역량</label>
+        <label class="option-label"><input type="radio" name="q17" value="d"> d. 통합적 사고력</label>
+        <label class="option-label"><input type="radio" name="q17" value="e"> e. 자기존중 및 대인관계 능력</label>
+        <label class="option-label"><input type="radio" name="q17" value="f"> f. 비판적 사고력 및 창의성</label>
+      </div>
+      <div class="card-actions">
+        <button type="button" class="btn-card btn-grade" onclick="gradeCard('card_17')">채점하기</button>
+        <button type="button" class="btn-card btn-card-reset" onclick="resetCard('card_17')">다시 풀기</button>
+      </div>
+      <div class="result-feedback" id="fb_card_17"></div>
+    </div>
+
+  </div>
+
+  <script>
+    function gradeCard(cardId) {
+      const card = document.getElementById(cardId);
+      const qType = card.getAttribute('data-type');
+      const expected = card.getAttribute('data-answer');
+      const fb = document.getElementById('fb_' + cardId);
+      const labels = card.querySelectorAll('.option-label');
+
+      labels.forEach(l => l.classList.remove('correct-choice', 'wrong-choice'));
+      fb.className = 'result-feedback';
+
+      if (qType === 'radio') {
+        const selected = card.querySelector('input[type="radio"]:checked');
+        labels.forEach(l => {
+          if (l.querySelector('input').value === expected) {
+            l.classList.add('correct-choice');
+          }
+        });
+
+        if (!selected) {
+          fb.textContent = '⚠️ 답을 선택하지 않았습니다.';
+          fb.classList.add('show-wrong');
+          return;
+        }
+
+        if (selected.value === expected) {
+          fb.textContent = '🎉 답이 맞습니다.';
+          fb.classList.add('show-correct');
+        } else {
+          selected.closest('.option-label').classList.add('wrong-choice');
+          fb.textContent = `❌ 답이 틀립니다. (정답: ${expected.toUpperCase()})`;
+          fb.classList.add('show-wrong');
+        }
+      } else if (qType === 'checkbox') {
+        const expectedList = expected.split(',').map(s => s.trim());
+        const checkedList = Array.from(card.querySelectorAll('input[type="checkbox"]:checked')).map(c => c.value);
+
+        labels.forEach(l => {
+          if (expectedList.includes(l.querySelector('input').value)) {
+            l.classList.add('correct-choice');
+          }
+        });
+
+        if (checkedList.length === 0) {
+          fb.textContent = '⚠️ 하나 이상 선택해 주세요.';
+          fb.classList.add('show-wrong');
+          return;
+        }
+
+        const isMatch = checkedList.length === expectedList.length && checkedList.every(v => expectedList.includes(v));
+        if (isMatch) {
+          fb.textContent = '🎉 답이 맞습니다.';
+          fb.classList.add('show-correct');
+        } else {
+          checkedList.forEach(v => {
+            if (!expectedList.includes(v)) {
+              card.querySelector(`input[value="${v}"]`).closest('.option-label').classList.add('wrong-choice');
+            }
+          });
+          fb.textContent = `❌ 답이 틀립니다. (정답: ${expectedList.join(', ').toUpperCase()})`;
+          fb.classList.add('show-wrong');
+        }
+      } else if (qType === 'text') {
+        const input = card.querySelector('.input-text');
+        const val = input.value.trim().replace(/\s+/g, '');
+        const cleanExp = expected.replace(/\s+/g, '');
+
+        if (val === '') {
+          fb.textContent = '⚠️ 답을 입력하지 않았습니다.';
+          fb.classList.add('show-wrong');
+          return;
+        }
+
+        if (val.toLowerCase() === cleanExp.toLowerCase()) {
+          fb.textContent = '🎉 답이 맞습니다.';
+          fb.classList.add('show-correct');
+        } else {
+          fb.textContent = `❌ 답이 틀립니다. (정답: ${expected})`;
+          fb.classList.add('show-wrong');
+        }
+      }
+    }
+
+    function gradeEssay(cardId) {
+      const fb = document.getElementById('fb_' + cardId);
+      fb.className = 'result-feedback show-correct';
+    }
+
+    function resetCard(cardId) {
+      const card = document.getElementById(cardId);
+      card.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(i => i.checked = false);
+      const textInput = card.querySelector('.input-text');
+      if (textInput) textInput.value = '';
+      card.querySelectorAll('.option-label').forEach(l => l.classList.remove('correct-choice', 'wrong-choice'));
+      const fb = document.getElementById('fb_' + cardId);
+      fb.className = 'result-feedback';
+      fb.textContent = '';
+    }
+  </script>
+</body>
+</html>
