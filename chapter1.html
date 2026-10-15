@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>지리교육론 복습 - [퀴즈] 1장</title>
+  <style>
+    :root {
+      --bg-color: #f8fafc;
+      --card-bg: #ffffff;
+      --primary: #3b82f6;
+      --primary-hover: #2563eb;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --correct: #10b981;
+      --wrong: #ef4444;
+      --correct-bg: #ecfdf5;
+      --wrong-bg: #fef2f2;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      padding: 40px 20px;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    header {
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 8px;
+    }
+
+    header p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+    }
+
+    .q-meta {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+    }
+
+    .q-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 14px;
+      color: #1e293b;
+      word-break: keep-all;
+    }
+
+    .q-box {
+      background-color: #f1f5f9;
+      border-left: 4px solid var(--primary);
+      padding: 12px 16px;
+      border-radius: 4px;
+      font-style: normal;
+      margin-bottom: 16px;
+      font-size: 0.95rem;
+      color: #334155;
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .option-label {
+      display: flex;
+      align-items: center;
+      padding: 12px 16px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+
+    .option-label:hover {
+      background-color: #f8fafc;
+      border-color: #cbd5e1;
+    }
+
+    .option-label input[type="radio"],
+    .option-label input[type="checkbox"] {
+      margin-right: 12px;
+      accent-color: var(--primary);
+      width: 17px;
+      height: 17px;
+    }
+
+    .input-text {
+      width: 100%;
+      max-width: 320px;
+      padding: 10px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      margin-bottom: 16px;
+    }
+
+    .option-label.correct-choice {
+      border-color: var(--correct) !important;
+      background-color: var(--correct-bg) !important;
+      font-weight: 600;
+      color: #065f46;
+    }
+
+    .option-label.wrong-choice {
+      border-color: var(--wrong) !important;
+      background-color: var(--wrong-bg) !important;
+      color: #991b1b;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .btn-card {
+      padding: 8px 18px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-grade {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    .btn-grade:hover {
+      background-color: var(--primary-hover);
+    }
+
+    .btn-card-reset {
+      background-color: #e2e8f0;
+      color: #475569;
+    }
+
+    .btn-card-reset:hover {
+      background-color: #cbd5e1;
+    }
+
+    .result-feedback {
+      margin-top: 14px;
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      display: none;
+    }
+
+    .result-feedback.show-correct {
+      display: block;
+      background-color: #d1fae5;
+      color: #065f46;
+    }
+
+    .result-feedback.show-wrong {
+      display: block;
+      background-color: #fee2e2;
+      color: #991b1b;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>📝 [퀴즈] 1장. 지리교육의 성격과 패러다임</h1>
+      <p>각 문제마다 답을 고르고 <strong>[채점하기]</strong> 버튼을 눌러 개별 확인할 수 있습니다.</p>
+    </header>
+
+    <!-- 문제 1 -->
+    <div class="card" id="card_1" data-type="radio" data-answer="b">
+      <div class="q-meta">문제 01</div>
+      <div class="q-title">월포드(Walford)는 지리교육의 이데올로기를 4가지 - 자유주의적 인문주의 전통, 아동 중심 전통, 실용주의 전통, 재건주의 전통 -에 따라 분류하였다. 아래에서 설명하고 있는 내용에 해당하는 것은?</div>
+      <div class="q-box">"교육을 사회적, 공간적 불평등을 해소하여 사회정의를 실현하기 위한 해방적 가치로 활용한다."</div>
+      <div class="options">
+        <label class="option-label"><input type="radio" name="q1" value="a"> a. 자유주의적 인문주의 전통</label>
+        <label class="option-label"><input type="radio" name="q1" value="b"> b. 재건주의 전통</label>
+        <label class="option-label"><input type="radio" name="q1" value="c"> c. 실용주의 전통</label>
+        <label class="option-label"><input type="radio" name="q1" value="d"> d. 아동 중심 전통</label>
+      </div>
+      <div class="card-actions">
+        <button type="button" class="btn-card btn-grade" onclick="gradeCard('card_1')">채점하기</button>
+        <button type="button" class="btn-card btn-card-reset" onclick="resetCard('card_1')">다시 풀기</button>
+      </div>
+      <div class="result-feedback" id="fb_card_1"></div>
+    </div>
+
+    <!-- 문제 2 -->
+    <div class="card" id="card_2" data-type="radio" data-answer="a">
+      <div class="q-meta">문제 02</div>
+      <div class="q-title">월포드(Walford)는 지리교육의 이데올로기를 4가지 - 자유주의적 인문주의 전통, 아동 중심 전통, 실용주의 전통, 재건주의 전통 -에 따라 분류하였다. 아래에서 설명하고 있는 내용에 해당하는 것은?</div>
+      <div class="q-box">"듀이(Dewey)와 같은 진보주의 교육학자가 주장하는 것처럼 아동의 일상적인 경험을 중심하고 아동의 자아발달과 성숙한 인간 육성을 목표로 한다."</div>
+      <div class="options">
+        <label class="option-label"><input type="radio" name="q2" value="a"> a. 아동 중심 전통</label>
+        <label class="option-label"><input type="radio" name="q2" value="b"> b. 자유주의적 인문주의 전통</label>
+        <label class="option-label"><input type="radio" name="q2" value="c"> c. 실용주의 전통</label>
+        <label class="option-label"><input type="radio" name="q2" value="d"> d. 재건주의 전통</label>
+      </div>
+      <div class="card-actions">
+        <button type="button" class="btn-card btn-grade" onclick="gradeCard('card_2')">채점하기</button>
+        <button type="button" class="btn-card btn-card-reset" onclick="resetCard('card_2')">다시 풀기</button>
+      </div>
+      <div class="result-feedback" id="fb_card_2"></div>
+    </div>
+
+    <!-- 문제 3 -->
+    <div class="card" id="card_3" data-type="radio" data-answer="b">
+      <div class="q-meta">문제 03</div>
+      <div class="q-title">슬레이터(Slater)는 지역지리학 이후 지리학의 패러다임을 3가지로 분류하였다. 아래에서 설명하는 패러다임은?</div>
+      <div class="q-box">• 우선사항/가치 : 사회를 이해하기, 사회를 비판하기<br>• 개념/언어 : 사회/구조, 조직, 권력, 기득권, 집단, 평등/불평등</div>
+      <div class="options">
+        <label class="option-label"><input type="radio" name="q3" value="a"> a. 과학적(실증주의) 패러다임</label>
+        <label class="option-label"><input type="radio" name="q3" value="b"> b. 진보적/급진주의적 패러다임</label>
+        <label class="option-label"><input type="radio" name="q3" value="c"> c. 인간주의 패러다임</label>
+      </div>
+      <div class="card-actions">
+        <button type="button" class="btn-card btn-grade" onclick="gradeCard('card_3')">채점하기</button>
+        <button type="button" class="btn-card btn-card-reset" onclick="resetCard('card_3')">다시 풀기</button>
+      </div>
+      <div class="result-feedback" id="fb_card_3"></div>
+    </div>
+
+    <!-- 문제 4 -->
+    <div class="card" id="card_4" data-type="radio" data-answer="참">
+      <div class="q-meta">문제 04</div>
+      <div class="q-title">실증주의 지리교육은 개념, 원리, 법칙, 일반화 등에 초점을 두며, 이를 효과적으로 가르치고 배우기 위해 '개념학습'이나 '발견학습' 또는 문제제기-가설설정-자료수집-자료분석-가설검증-결론도출(일반화)로 이어지는 탐구학습을 강조한다.</div>
+      <div class="options">
+        <label class="option-label"><input type="radio" name="q4" value="참"> 참</label>
+        <label class="option-label"><input type="radio" name="q4" value="거짓"> 거짓</label>
+      </div>
+      <div class="card-actions">
+        <button type="button" class="btn-card btn-grade" onclick="gradeCard('card_4')">채점하기</button>
+        <button type="button" class="btn-card btn-card-reset" onclick="resetCard('card_4')">다시 풀기</button>
+      </div>
+      <div class="result-feedback" id="fb_card_4"></div>
+    </div>
+
+    <!-- 문제 5 -->
+    <div class="card" id="card_5" data-type="radio" data-answer="a">
+      <div class="q-meta">문제 05</div>
+      <div class="q-title">다음은 지리교육의 패러다임에 대한 설명이다. 다음 중 성격이 다른 하나는?</div>
+      <div class="options">
+        <label class="option-label"><input type="radio" name="q5" value="a"> a. 암묵적 지식과 관련</label>
+        <label class="option-label"><input type="radio" name="q5" value="b"> b. 객관화되고 일반화된 세계에 대한 견해를 제공</label>
+        <label class="option-label"><input type="radio" name="q5" value="c"> c. 행동목표와 밀접한 관련</label>
+        <label class="option-label"><input type="radio" name="q5" value="d"> d. 모학문의 지식의 구조 강조</label>
+      </div>
+      <div class="card-actions">
+        <button type="button" class="btn-card btn-grade" onclick="gradeCard('card_5')">채점하기</button>
+        <button type="button" class="btn-card btn-card-reset" onclick="resetCard('card_5')">다시 풀기</button>
+      </div>
+      <div class="result-feedback" id="fb_card_5"></div>
+    </div>
+
+    <!-- 문제 6 -->
+    <div class="card" id="card_6" data-type="text" data-answer="사적지리">
+      <div class="q-meta">문제 06</div>
+      <div class="q-title">아래 내용이 설명하는 개념은?</div>
+      <div class="q-box">• 세계에 대한 개인적 이해와 가치를 가리킨다.<br>• 이것은 사람마다 다르며 끊임없이 재형성된다.<br>• 공적지리(public geography) 또는 학문지리(academic geography)와 대비되는 개념이다.</div>
+      <input type="text" class="input-text" id="input_card_6" placeholder="개념을 입력하세요">
+      <div class="card-actions">
+        <button type="button" class="btn-card btn-grade" onclick="gradeCard('card_6')">채점하기</button>
+        <button type="button" class="btn-card btn-card-reset" onclick="resetCard('card_6')">다시 풀기</button>
+      </div>
+      <div class="result-feedback" id="fb_card_6"></div>
+    </div>
+
+    <!-- 문제 7 -->
+    <div class="card" id="card_7" data-type="radio" data-answer="거짓">
+      <div class="q-meta">문제 07</div>
+      <div class="q-title">브루너(Bruner)는 인간의 두 가지 사고양식을 상정하면서 '패러다임적 사고(paradigmatic mode of thought)'와 '내러티브적 사고(narrative mode of thought)'를 구분하였다. 패러다임적 사고는 인간주의 지리학, 내러티브적 사고는 실증주의 지리학과 조응된다.</div>
+      <div class="options">
+        <label class="option-label"><input type="radio" name="q7" value="참"> 참</label>
+        <label class="option-label"><input type="radio" name="q7" value="거짓"> 거짓</label>
+      </div>
+      <div class="card-actions">
+        <button type="button" class="btn-card btn-grade" onclick="gradeCard('card_7')">채점하기</button>
+        <button type="button" class="btn-card btn-card-reset" onclick="resetCard('card_7')">다시 풀기</button>
+      </div>
+      <div class="result-feedback" id="fb_card_7"></div>
+    </div>
+
+    <!-- 문제 8 -->
+    <div class="card" id="card_8" data-type="radio" data-answer="a">
+      <div class="q-meta">문제 08</div>
+      <div class="q-title">다음 중 브루너(Bruner)의 설명적 담론(설명적 텍스트)에 대한 설명으로 옳지 않은 것은?</div>
+      <div class="options">
+        <label class="option-label"><input type="radio" name="q8" value="a"> a. 설명적 담론은 감정이입이나 공감적 이해를 높이는데 효과적이다.</label>
+        <label class="option-label"><input type="radio" name="q8" value="b"> b. 설명적 담론의 목적은 기술 또는 설명을 제공하는 것이다.</label>
+        <label class="option-label"><input type="radio" name="q8" value="c"> c. 사실, 주제, 개념, 원리에 초점이 맞추어져 있으며, 행위자(화자)가 없는 비인칭의 주술관계를 이룬다.</label>
+        <label class="option-label"><input type="radio" name="q8" value="d"> d. 연대순보다는 논리적 순서로 진술된다.</label>
+      </div>
+      <div class="card-actions">
+        <button type="button" class="btn-card btn-grade" onclick="gradeCard('card_8')">채점하기</button>
+        <button type="button" class="btn-card btn-card-reset" onclick="resetCard('card_8')">다시 풀기</button>
+      </div>
+      <div class="result-feedback" id="fb_card_8"></div>
+    </div>
+
+    <!-- 문제 9 -->
+    <div class="card" id="card_9" data-type="radio" data-answer="참">
+      <div class="q-meta">문제 09</div>
+      <div class="q-title">인간주의 지리교육은 교육과정 설계에서 사적지리 또는 개인 지리에 초점을 두며, 교수학적 측면에서 학습자의 일상생활에 근거한 학습자 중심 교수법을 강조한다.</div>
+      <div class="options">
+        <label class="option-label"><input type="radio" name="q9" value="참"> 참</label>
+        <label class="option-label"><input type="radio" name="q9" value="거짓"> 거짓</label>
+      </div>
+      <div class="card-actions">
+        <button type="button" class="btn-card btn-grade" onclick="gradeCard('card_9')">채점하기</button>
+        <button type="button" class="btn-card btn-card-reset" onclick="resetCard('card_9')">다시 풀기</button>
+      </div>
+      <div class="result-feedback" id="fb_card_9"></div>
+    </div>
+
+    <!-- 문제 10 -->
+    <div class="card" id="card_10" data-type="radio" data-answer="b">
+      <div class="q-meta">문제 10</div>
+      <div class="q-title">다음과 관계 깊은 지리교육의 패러다임은?</div>
+      <div class="q-box">도시구조모델(버제스의 동심원 이론), 호이트의 선형이론, 공간이론(베버)의 공업입지론과 크리스탈러의 중심지이론, 계량화(최근린지수, 중력모형)</div>
+      <div class="options">
+        <label class="option-label"><input type="radio" name="q10" value="a"> a. 구조주의</label>
+        <label class="option-label"><input type="radio" name="q10" value="b"> b. 실증주의</label>
+        <label class="option-label"><input type="radio" name="q10" value="c"> c. 포스트모더니즘</label>
+        <label class="option-label"><input type="radio" name="q10" value="d"> d. 인간주의</label>
+      </div>
+      <div class="card-actions">
+        <button type="button" class="btn-card btn-grade" onclick="gradeCard('card_10')">채점하기</button>
+        <button type="button" class="btn-card btn-card-reset" onclick="resetCard('card_10')">다시 풀기</button>
+      </div>
+      <div class="result-feedback" id="fb_card_10"></div>
+    </div>
+
+    <!-- 문제 11 -->
+    <div class="card" id="card_11" data-type="radio" data-answer="a">
+      <div class="q-meta">문제 11</div>
+      <div class="q-title">다음 중 종류가 다른 하나는?</div>
+      <div class="options">
+        <label class="option-label"><input type="radio" name="q11" value="a"> a. 암묵적 지식</label>
+        <label class="option-label"><input type="radio" name="q11" value="b"> b. 패러다임적 사고</label>
+        <label class="option-label"><input type="radio" name="q11" value="c"> c. 행동목표</label>
+        <label class="option-label"><input type="radio" name="q11" value="d"> d. 실증주의 지리학</label>
+      </div>
+      <div class="card-actions">
+        <button type="button" class="btn-card btn-grade" onclick="gradeCard('card_11')">채점하기</button>
+        <button type="button" class="btn-card btn-card-reset" onclick="resetCard('card_11')">다시 풀기</button>
+      </div>
+      <div class="result-feedback" id="fb_card_11"></div>
+    </div>
+
+    <!-- 문제 12 -->
+    <div class="card" id="card_12" data-type="checkbox" data-answer="b,c">
+      <div class="q-meta">문제 12</div>
+      <div class="q-title">내러티브의 지리교육적 가치로 적합한 설명을 모두 골라라.</div>
+      <div class="options">
+        <label class="option-label"><input type="checkbox" name="q12" value="a"> a. 공간적 능력을 개발할 수 있다.</label>
+        <label class="option-label"><input type="checkbox" name="q12" value="b"> b. 감정이입을 지원해 공감적 이해를 발달시킨다.</label>
+        <label class="option-label"><input type="checkbox" name="q12" value="c"> c. 지리적 상상력 발달을 지원한다.</label>
+        <label class="option-label"><input type="checkbox" name="q12" value="d"> d. 비판적 인식을 통해 사회정의에 기여할 수 있다.</label>
+      </div>
+      <div class="card-actions">
+        <button type="button" class="btn-card btn-grade" onclick="gradeCard('card_12')">채점하기</button>
+        <button type="button" class="btn-card btn-card-reset" onclick="resetCard('card_12')">다시 풀기</button>
+      </div>
+      <div class="result-feedback" id="fb_card_12"></div>
+    </div>
+
+  </div>
+
+  <script>
+    function gradeCard(cardId) {
+      const card = document.getElementById(cardId);
+      const qType = card.getAttribute('data-type');
+      const expected = card.getAttribute('data-answer');
+      const fb = document.getElementById('fb_' + cardId);
+      const labels = card.querySelectorAll('.option-label');
+
+      labels.forEach(l => l.classList.remove('correct-choice', 'wrong-choice'));
+      fb.className = 'result-feedback';
+
+      if (qType === 'radio') {
+        const selected = card.querySelector('input[type="radio"]:checked');
+        labels.forEach(l => {
+          if (l.querySelector('input').value === expected) {
+            l.classList.add('correct-choice');
+          }
+        });
+
+        if (!selected) {
+          fb.textContent = '⚠️ 답을 선택하지 않았습니다.';
+          fb.classList.add('show-wrong');
+          return;
+        }
+
+        if (selected.value === expected) {
+          fb.textContent = '🎉 답이 맞습니다.';
+          fb.classList.add('show-correct');
+        } else {
+          selected.closest('.option-label').classList.add('wrong-choice');
+          fb.textContent = `❌ 답이 틀립니다. (정답: ${expected.toUpperCase()})`;
+          fb.classList.add('show-wrong');
+        }
+      } else if (qType === 'checkbox') {
+        const expectedList = expected.split(',').map(s => s.trim());
+        const checkedList = Array.from(card.querySelectorAll('input[type="checkbox"]:checked')).map(c => c.value);
+
+        labels.forEach(l => {
+          if (expectedList.includes(l.querySelector('input').value)) {
+            l.classList.add('correct-choice');
+          }
+        });
+
+        if (checkedList.length === 0) {
+          fb.textContent = '⚠️ 하나 이상 선택해 주세요.';
+          fb.classList.add('show-wrong');
+          return;
+        }
+
+        const isMatch = checkedList.length === expectedList.length && checkedList.every(v => expectedList.includes(v));
+        if (isMatch) {
+          fb.textContent = '🎉 답이 맞습니다.';
+          fb.classList.add('show-correct');
+        } else {
+          checkedList.forEach(v => {
+            if (!expectedList.includes(v)) {
+              card.querySelector(`input[value="${v}"]`).closest('.option-label').classList.add('wrong-choice');
+            }
+          });
+          fb.textContent = `❌ 답이 틀립니다. (정답: ${expectedList.join(', ').toUpperCase()})`;
+          fb.classList.add('show-wrong');
+        }
+      } else if (qType === 'text') {
+        const input = card.querySelector('.input-text');
+        const val = input.value.trim().replace(/\s+/g, '');
+        const cleanExp = expected.replace(/\s+/g, '');
+
+        if (val === '') {
+          fb.textContent = '⚠️ 답을 입력하지 않았습니다.';
+          fb.classList.add('show-wrong');
+          return;
+        }
+
+        if (val.toLowerCase() === cleanExp.toLowerCase()) {
+          fb.textContent = '🎉 답이 맞습니다.';
+          fb.classList.add('show-correct');
+        } else {
+          fb.textContent = `❌ 답이 틀립니다. (정답: ${expected})`;
+          fb.classList.add('show-wrong');
+        }
+      }
+    }
+
+    function resetCard(cardId) {
+      const card = document.getElementById(cardId);
+      card.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(i => i.checked = false);
+      const textInput = card.querySelector('.input-text');
+      if (textInput) textInput.value = '';
+      card.querySelectorAll('.option-label').forEach(l => l.classList.remove('correct-choice', 'wrong-choice'));
+      const fb = document.getElementById('fb_' + cardId);
+      fb.className = 'result-feedback';
+      fb.textContent = '';
+    }
+  </script>
+</body>
+</html>
